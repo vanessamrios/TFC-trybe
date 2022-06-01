@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { compare } from 'bcrypt';
 import Users from '../database/models/Users';
+import jwtGenerator from '../helpers/jwtGenerator';
 
 class LoginController {
   public login = async (req: Request, res: Response) => {
@@ -14,6 +15,8 @@ class LoginController {
 
     if (!validPassword) return res.status(401).json({ error: 'Invalid password' });
 
+    const token = jwtGenerator({ id: user.id, email });
+
     return res.status(200).json({
       user: {
         id: user.id,
@@ -21,8 +24,7 @@ class LoginController {
         role: user.role,
         email: user.email,
       },
-      token: 123456789,
-      // Aqui deve ser o token gerado pelo backend.
+      token,
     });
   };
 }
