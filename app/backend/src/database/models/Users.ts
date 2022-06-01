@@ -4,7 +4,13 @@ import db from '.';
 class Users extends Model {
   public id!: number;
 
-  public teamName: string;
+  public username: string;
+
+  public role: string;
+
+  public email: string;
+
+  public password: string;
 }
 
 Users.init({
