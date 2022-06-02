@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { compare } from 'bcrypt';
+import { compare } from 'bcryptjs';
 import Users from '../database/models/Users';
 import * as jwtGenerator from '../helpers/jwtGenerator';
 
