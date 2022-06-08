@@ -1,68 +1,70 @@
-// import { Model, DataTypes } from 'sequelize';
-// import db from '.';
-// import Teams from './Teams';
+import { Model, DataTypes } from 'sequelize';
+import db from '.';
+import Teams from './Teams';
 
-// class Matches extends Model {
-//   public id!: number;
+class Matches extends Model {
+  public id!: number;
 
-//   public homeTeam: number;
+  public homeTeam: number;
 
-//   public homeTeamGoals: number;
+  public homeTeamGoals: number;
 
-//   public awayTeam: number;
+  public awayTeam: number;
 
-//   public awayTeamGoals: number;
+  public awayTeamGoals: number;
 
-//   public inProgress: boolean;
-// }
+  public inProgress: boolean;
+}
 
-// Matches.init({
-//   id: {
-//     type: DataTypes.INTEGER,
-//     primaryKey: true,
-//     allowNull: false,
-//     autoIncrement: true,
-//   },
-//   home_team: {
-//     type: DataTypes.INTEGER,
-//     allowNull: false,
-//   },
-//   home_team_goals: {
-//     type: DataTypes.INTEGER,
-//     allowNull: false,
-//   },
-//   away_team: {
-//     type: DataTypes.INTEGER,
-//     allowNull: false,
-//   },
-//   away_team_goals: {
-//     type: DataTypes.INTEGER,
-//     allowNull: false,
-//   },
-//   in_progress: {
-//     type: DataTypes.BOOLEAN,
-//     allowNull: false,
-//   },
-// }, {
-//   // ... Outras configs
-//   underscored: true,
-//   sequelize: db,
-//   modelName: 'Matches',
-//   timestamps: false,
-// });
+Matches.init({
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    allowNull: false,
+    autoIncrement: true,
+  },
+  homeTeam: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  homeTeamGoals: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  awayTeam: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  awayTeamGoals: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  inProgress: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
+}, {
+  // ... Outras configs
+  underscored: true,
+  sequelize: db,
+  modelName: 'Matches',
+  timestamps: false,
+});
 
-// /**
-//   * `Workaround` para aplicar as associations em TS:
-//   * Associations 1:N devem ficar em uma das instâncias de modelo
-//   * */
+/**
+  * `Workaround` para aplicar as associations em TS:
+  * Associations 1:N devem ficar em uma das instâncias de modelo
+  * */
 
-// // OtherModel.belongsTo(Example, { foreignKey: 'campoA', as: 'campoEstrangeiroA' });
-// // OtherModel.belongsTo(Example, { foreignKey: 'campoB', as: 'campoEstrangeiroB' });
+Teams.hasMany(Matches, { foreignKey: 'homeTeam', as: 'teamHome' });
+Teams.hasMany(Matches, { foreignKey: 'awayTeam', as: 'teamAway' });
+Matches.belongsTo(Teams, { foreignKey: 'homeTeam', as: 'teamHome' });
+Matches.belongsTo(Teams, { foreignKey: 'awayTeam', as: 'teamAway' });
 
-// // Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
-// // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
+// OtherModel.belongsTo(Example, { foreignKey: 'campoA', as: 'campoEstrangeiroA' });
+// OtherModel.belongsTo(Example, { foreignKey: 'campoB', as: 'campoEstrangeiroB' });
 
-// Matches.hasMany(Teams, { foreignKey: 'homeTeam', as: 'id' });
-// Matches.hasMany(Teams, { foreignKey: 'awayTeam', as: 'id' });
+// Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
+// Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
 
-// export default Matches;
+export default Matches;
