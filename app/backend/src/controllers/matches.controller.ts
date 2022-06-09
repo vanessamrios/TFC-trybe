@@ -29,6 +29,13 @@ class MatchesController {
       );
     }
 
+    const teamHome = await Teams.findOne({ where: { id: homeTeam } });
+    const teamAway = await Teams.findOne({ where: { id: awayTeam } });
+    if (!teamHome || !teamAway) {
+      return res.status(404).json(
+        { message: 'There is no team with such id!' },
+      );
+    }
     const createdMatch = await Matches.create(match);
     return res.status(201).json(createdMatch);
   };
