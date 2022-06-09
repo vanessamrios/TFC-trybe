@@ -23,7 +23,16 @@ class MatchesController {
     const match = req.body;
 
     const createdMatch = await Matches.create(match);
-    res.status(201).json(createdMatch);
+    return res.status(201).json(createdMatch);
+  };
+
+  public update = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    // const match = await Matches.findOne({ where: { id } });
+    await Matches.update({ inProgress: false }, { where: { id } });
+
+    return res.status(200).json({ message: 'Finished' });
   };
 }
 
