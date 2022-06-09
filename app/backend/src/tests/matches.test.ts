@@ -32,6 +32,9 @@ describe('Testa o endpoint /matches', () => {
         inProgress: true,
       } as Matches);
     sinon
+      .stub(Matches, "update")
+      .resolves();
+    sinon
       .stub(jwtGenerator, "verify")
       .resolves();
   });
@@ -40,6 +43,7 @@ describe('Testa o endpoint /matches', () => {
     (Matches.findAll as sinon.SinonStub).restore();
     (Matches.create as sinon.SinonStub).restore();
     (jwtGenerator.verify as sinon.SinonStub).restore();
+    (Matches.update as sinon.SinonStub).restore();
   })
 
   it('Retorna um status 200 e uma lista de partidas', async () => {
@@ -88,6 +92,14 @@ describe('Testa o endpoint /matches', () => {
     expect(chaiHttpResponse.status).to.be.equal(401);
     expect(chaiHttpResponse.body).to.be.eql({ message: 'Token not found' })
 
+  });
+
+  it('Retorna um status 200 e a mensagem finished quando o campo inProgress é alterado para false', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .patch('/matches/41/finish')
+
+    expect(chaiHttpResponse.status).to.be.equal(200)
   });
 
 });
