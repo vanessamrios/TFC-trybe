@@ -36,7 +36,6 @@ class MatchesController {
   public update = async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    // const match = await Matches.findOne({ where: { id } });
     await Matches.update({ inProgress: false }, { where: { id } });
 
     return res.status(200).json({ message: 'Finished' });

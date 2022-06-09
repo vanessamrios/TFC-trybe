@@ -78,6 +78,23 @@ describe('Testa o endpoint /matches', () => {
 
   });
 
+  it('Retorna um status 401 e uma mensagem de erro se a requisição for feita com times iguais', async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .post('/matches')
+      .set('authorization', '123')
+      .send( {
+        homeTeam: 16,
+        awayTeam: 16,
+        homeTeamGoals: 2,
+        awayTeamGoals: 2,
+        inProgress: true
+      })
+    expect(chaiHttpResponse.status).to.be.equal(401);
+    expect(chaiHttpResponse.body).to.be.eql({ message: "It is not possible to create a match with two equal teams" })
+
+  });
+
   it('Retorna um status 401 se não houver token', async () => {
     chaiHttpResponse = await chai
       .request(app)
