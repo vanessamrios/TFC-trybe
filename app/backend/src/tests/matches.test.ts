@@ -35,6 +35,16 @@ describe('Testa o endpoint /matches', () => {
       .stub(Matches, "update")
       .resolves();
     sinon
+      .stub(Matches, "findOne")
+      .resolves({
+        id: 46,
+        homeTeam: 4,
+        homeTeamGoals: 1,
+        awayTeam: 12,
+        awayTeamGoals: 1,
+        inProgress: true,
+      } as Matches);
+    sinon
       .stub(jwtGenerator, "verify")
       .resolves();
   });
@@ -44,6 +54,7 @@ describe('Testa o endpoint /matches', () => {
     (Matches.create as sinon.SinonStub).restore();
     (jwtGenerator.verify as sinon.SinonStub).restore();
     (Matches.update as sinon.SinonStub).restore();
+    (Matches.findOne as sinon.SinonStub).restore();
   })
 
   it('Retorna um status 200 e uma lista de partidas', async () => {
@@ -117,6 +128,18 @@ describe('Testa o endpoint /matches', () => {
        .patch('/matches/41/finish')
 
     expect(chaiHttpResponse.status).to.be.equal(200)
+  });
+
+  it('Retorna um status 200 e uma mensagem no corpo quando uma partida em andamento é atualizada.', async () => {
+    chaiHttpResponse = await chai
+    .request(app)
+    .patch('/matches/46')
+    .send( {
+      homeTeamGoals: 2,
+      awayTeamGoals: 1
+    } )
+ expect(chaiHttpResponse.status).to.be.equal(200)
+ expect(chaiHttpResponse.body).to.be.eql({ message: 'Updated' })
   });
 
 });

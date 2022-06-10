@@ -55,7 +55,7 @@ class MatchesController {
     const match = await Matches.findOne({ where: { id } });
 
     if (!match?.inProgress) {
-      return res.status(200).json({
+      return res.status(404).json({
         message: 'It is not possible to update a match that has already ended' });
     }
 
