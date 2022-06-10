@@ -40,12 +40,30 @@ class MatchesController {
     return res.status(201).json(createdMatch);
   };
 
-  public update = async (req: Request, res: Response) => {
+  public updateProgress = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     await Matches.update({ inProgress: false }, { where: { id } });
 
     return res.status(200).json({ message: 'Finished' });
+  };
+
+  public updateResult = async (req:Request, res: Response) => {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+
+    const match = await Matches.findOne({ where: { id } });
+
+    if (!match?.inProgress) {
+      return res.status(200).json({
+        message: 'It is not possible to update a match that has already ended' });
+    }
+
+    if (match?.inProgress) {
+      await Matches.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+
+      return res.status(200).json({ message: 'Updated' });
+    }
   };
 }
 
