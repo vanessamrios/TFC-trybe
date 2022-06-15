@@ -37,7 +37,7 @@ function mapMatches(team: Teams) {
     goalsFavor: goalsFavor(team.teamHome),
     goalsOwn: goalsOwn(team.teamHome),
     goalsBalance: goalsFavor(team.teamHome) - goalsOwn(team.teamHome),
-    efficiency: ((totalPoints(team.teamHome) / (team.teamHome.length * 3)) * 100).toFixed(2),
+    efficiency: +((totalPoints(team.teamHome) / (team.teamHome.length * 3)) * 100).toFixed(2),
   };
 }
 
