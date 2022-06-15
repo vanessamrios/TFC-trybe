@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Teams from '../database/models/Teams';
 import Matches from '../database/models/Matches';
+import TeamRanking from '../Interfaces/TeamRanking.interface';
 
 function totalVictories(matches: Matches[]) {
   return matches.filter((match) => match.homeTeamGoals > match.awayTeamGoals).length;
@@ -41,7 +42,8 @@ function mapMatches(team: Teams) {
   };
 }
 
-function sortRanking(a: any, b: any) {
+// eslint-disable-next-line sonarjs/cognitive-complexity
+function sortRanking(a: TeamRanking, b: TeamRanking) {
   if (a.totalPoints === b.totalPoints) {
     if (a.totalVictories < b.totalVictories) return 1;
     if (a.totalVictories > b.totalVictories) return -1;
