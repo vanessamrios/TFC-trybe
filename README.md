@@ -14,6 +14,7 @@ The purpose of this project was to develop an API capable of being consumed by a
   * Express;
   * jwt;
   * Sequelize.
+  * Tests: Sinon and Chai 
   
 - Database:
   * MySQL.
