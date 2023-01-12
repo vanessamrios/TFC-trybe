@@ -1,16 +1,44 @@
-# 🚧 README em construção 🚧
+# TFC - Trybe Futebol Clube :soccer:
+ 
+- TFC is an informational website about football matches and rankings!
 
-<!-- Olá, Tryber!
+The purpose of this project was to develop an API capable of being consumed by an already provided front-end, using `TypeScript`. Another challenge was to integrate, through `Docker`, the front-end provided, the backend developed, and a `MySQL` database modeled.
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
+## Technologies used:
 
-É essencial que você preencha esse documento por conta própria, ok?
+- App:
+  * Docker.
 
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
+- Back-End:
+  * TypeScript;
+  * Express;
+  * jwt;
+  * Sequelize.
+  
+- Database:
+  * MySQL.
 
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
+- Front-End **(provided by the school)**: 
+  * React 
 
--->
+---
+
+## Running the application
+
+- install: npm install
+
+- run: npm run compose:up 
+
+You should be able to see the page on http://localhost:3000
+
+
+## Behavior Reference
+
+- Ranking screen:
+![image](https://user-images.githubusercontent.com/81382369/212123072-8dd843f1-733c-4046-abdd-6d8cf670b952.png)
+
+- Matches screen:
+![image](https://user-images.githubusercontent.com/81382369/212123226-e3540812-6df2-405f-b93a-f80a1aecdb2f.png)
+
+NOTE:
+The project was aproved by de school, since the essential features were implemented, but keep in mind that it is still a work in progress.
