@@ -30,8 +30,12 @@ The purpose of this project was to develop an API capable of being consumed by a
 
 - run: npm run compose:up 
 
-You should be able to see the page on http://localhost:3000
+While there's no register screen, use the following credencials to see the features already implemented:
 
+`login: admin@admin.com
+password: secret_admin`
+
+You should be able to see the page on http://localhost:3000
 
 ## Behavior Reference
 
