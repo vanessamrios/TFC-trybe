@@ -4,18 +4,34 @@ import Matches from '../database/models/Matches';
 
 class MatchesController {
   public getAll = async (req: Request, res: Response) => {
-    const matches = await Matches.findAll({
-      include: [{
-        model: Teams,
-        as: 'teamAway',
-        attributes: ['teamName'],
-      }, {
-        model: Teams,
-        as: 'teamHome',
-        attributes: ['teamName'],
-      }],
-    });
-
+    let matches;
+    if (req.query.inProgress) {
+      const inProgress = ((req.query.inProgress+``).toLowerCase() === 'true')
+      matches = await Matches.findAll({ where: { "inProgress": inProgress },
+        include: [{
+          model: Teams,
+          as: 'teamAway',
+          attributes: ['teamName'],
+        }, {
+          model: Teams,
+          as: 'teamHome',
+          attributes: ['teamName'],
+        }],
+      });
+    } 
+    else {
+      matches = await Matches.findAll({
+        include: [{
+          model: Teams,
+          as: 'teamAway',
+          attributes: ['teamName'],
+        }, {
+          model: Teams,
+          as: 'teamHome',
+          attributes: ['teamName'],
+        }],
+      });
+    }
     return res.status(200).json(matches);
   };
 
