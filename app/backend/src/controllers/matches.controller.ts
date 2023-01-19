@@ -6,8 +6,8 @@ class MatchesController {
   public getAll = async (req: Request, res: Response) => {
     let matches;
     if (req.query.inProgress) {
-      const inProgress = ((req.query.inProgress+``).toLowerCase() === 'true')
-      matches = await Matches.findAll({ where: { "inProgress": inProgress },
+      const inProgress = ((req.query.inProgress+'').toLowerCase() === 'true')
+      matches = await Matches.findAll({ where: { inProgress },
         include: [{
           model: Teams,
           as: 'teamAway',
